@@ -4,6 +4,7 @@ on:
   push:
     branches: [main]
     paths:
+      - ".github/workflows/web.yml"
       - "CMakeLists.txt"
       - "qds.cmake"
       - "qtquickcontrols2.conf"
@@ -49,6 +50,13 @@ jobs:
           arch: wasm_singlethread
           modules: "qtshadertools qtquicktimeline"
           cache: true
+
+      - name: Verify Qt tool permissions
+        run: |
+          test -f "${QT_ROOT_DIR}/bin/qt-cmake"
+          ls -l "${QT_ROOT_DIR}/bin/qt-cmake"
+          chmod u+x "${QT_ROOT_DIR}/bin/qt-cmake"
+          test -x "${QT_ROOT_DIR}/bin/qt-cmake"
 
       - name: Configure
         run: |

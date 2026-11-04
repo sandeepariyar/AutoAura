@@ -1,0 +1,92 @@
+name: Build and deploy web edition
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "CMakeLists.txt"
+      - "qds.cmake"
+      - "qtquickcontrols2.conf"
+      - "App/**"
+      - "AutoAura/**"
+      - "AutoAuraContent/**"
+      - "Generated/**"
+      - "Dependencies/**"
+      - "cmake/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Install build utilities
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ninja-build
+
+      - name: Set up Emscripten
+        uses: mymindstorm/setup-emsdk@v14
+        with:
+          version: "3.1.56"
+
+      - name: Install Qt for WebAssembly
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: "6.8.3"
+          target: wasm
+          arch: wasm_singlethread
+          modules: "qtshadertools qtquicktimeline"
+          cache: true
+
+      - name: Configure
+        run: |
+          test -f CMakeLists.txt
+          "${QT_ROOT_DIR}/bin/qt-cmake" \
+            -S . -B build-web -G Ninja \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DLINK_INSIGHT=OFF \
+            -DBUILD_QDS_COMPONENTS=ON
+
+      - name: Build
+        run: cmake --build build-web --parallel 2
+
+      - name: Assemble browser files
+        run: |
+          mkdir -p public
+          find build-web -maxdepth 1 -type f \
+            \( -name '*.html' -o -name '*.js' -o -name '*.wasm' -o -name '*.data' -o -name '*.svg' -o -name '*.json' \) \
+            -exec cp '{}' public/ \;
+          test -f public/AutoAuraApp.html
+          cp public/AutoAuraApp.html public/index.html
+          touch public/.nojekyll
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload website files
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: public
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-22.04
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publish website
+        id: deployment
+        uses: actions/deploy-pages@v4

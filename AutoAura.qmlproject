@@ -1,0 +1,117 @@
+// prop: json-converted
+// prop: auto-generated
+
+import QmlProject
+
+Project {
+    mainFile: "AutoAuraContent/App.qml"
+    mainUiFile: "AutoAuraContent/Screen01.qml"
+    targetDirectory: "/opt/AutoAura"
+    enableCMakeGeneration: true
+    widgetApp: true
+    importPaths: [ "." ]
+
+    qdsVersion: "4.8"
+    quickVersion: "6.2"
+    qt6Project: true
+    qtForMCUs: false
+
+    multilanguageSupport: true
+    primaryLanguage: "en"
+    supportedLanguages: [ "en" ]
+
+    Environment {
+        QML_COMPAT_RESOLVE_URLS_ON_ASSIGNMENT: "1"
+        QT_ENABLE_HIGHDPI_SCALING: "0"
+        QT_LOGGING_RULES: "qt.qml.connections=false"
+        QT_QUICK_CONTROLS_CONF: "qtquickcontrols2.conf"
+    }
+
+    ShaderTool {
+        args: "-s --glsl 100es,120,150 --hlsl 50 --msl 12"
+        files: [ "AutoAuraContent/shaders/*" ]
+    }
+
+    EffectComposer {
+        qsbArgs: "-s --glsl 300es,140,330,410 --hlsl 50 --msl 12"
+    }
+
+    QmlFiles {
+        directory: "AutoAura"
+    }
+
+    QmlFiles {
+        directory: "AutoAuraContent"
+    }
+
+    QmlFiles {
+        directory: "Generated"
+    }
+
+    JavaScriptFiles {
+        directory: "AutoAura"
+    }
+
+    JavaScriptFiles {
+        directory: "AutoAuraContent"
+    }
+
+    ImageFiles {
+        directory: "AutoAuraContent"
+    }
+
+    ImageFiles {
+        directory: "Generated"
+    }
+
+    Files {
+        filter: "*.conf"
+        files: [
+            "qtquickcontrols2.conf"
+        ]
+    }
+
+    Files {
+        directory: "."
+        filter: "qmldir"
+    }
+
+    FontFiles {
+        filter: "*.ttf;*.otf"
+    }
+
+    Files {
+        filter: "*.wav;*.mp3"
+    }
+
+    Files {
+        filter: "*.mp4"
+    }
+
+    Files {
+        filter: "*.glsl;*.glslv;*.glslf;*.vsh;*.fsh;*.vert;*.frag"
+    }
+
+    Files {
+        filter: "*.qsb"
+    }
+
+    Files {
+        filter: "*.json"
+    }
+
+    Files {
+        directory: "Generated"
+        filter: "*.mesh"
+    }
+
+    Files {
+        directory: "Generated"
+        filter: "*.qad"
+    }
+
+    Files {
+        directory: "AutoAuraContent"
+        filter: "*.bin;*.exr;*.mesh"
+    }
+}

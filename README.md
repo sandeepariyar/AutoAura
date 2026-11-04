@@ -1,5 +1,9 @@
 # AutoAura
 
+[![Launch live demo](https://img.shields.io/badge/Launch-Live_Demo-00C853?style=for-the-badge&logo=githubpages&logoColor=white)](https://sandeepariyar.github.io/AutoAura/)
+
+**Live application:** https://sandeepariyar.github.io/AutoAura/
+
 AutoAura is an interactive automotive dashboard prototype built with **Qt 6**, **C++**, **QML**, and **Qt Design Studio**.
 
 The interface features an animated car visualization, charging controls, seat heating, door controls, climate interaction, and status panels.
@@ -28,9 +32,9 @@ The `.github/workflows/web.yml` workflow builds the Qt application for **WebAsse
 
 The browser version uses Qt WebAssembly, not a rewrite of the interface. Some platform-specific functionality may require adaptation.
 
-Once GitHub Pages is enabled with **GitHub Actions** as the source and the build succeeds, the intended address is:
+The application is published at:
 
-https://sandeepariyar.github.io/AutoAura/
+[**Open AutoAura in your browser**](https://sandeepariyar.github.io/AutoAura/)
 
 ## Project layout
 

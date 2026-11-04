@@ -20,6 +20,14 @@ find_package(Qt6 6.2 REQUIRED COMPONENTS Core Gui Widgets Qml Quick QuickTimelin
 
 
 qt_add_executable(${CMAKE_PROJECT_NAME})
+
+# Give the WebAssembly application enough memory for its compiled resources.
+# Keep the native desktop builds unchanged.
+if(EMSCRIPTEN)
+    set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES
+        QT_WASM_INITIAL_MEMORY "256MB"
+    )
+endif()
 qt_add_resources(${CMAKE_PROJECT_NAME} "configuration"
     PREFIX "/"
     FILES

@@ -1,0 +1,50 @@
+# Native build output
+AutoAuraApp-Debug/
+AutoAuraApp-Release/
+*-Debug/
+*-Release/
+build/
+build-*/
+build_*/
+cmake-build-*/
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+compile_commands.json
+Makefile
+.ninja_deps
+.ninja_log
+*.ninja
+*.ninja_deps
+*.ninja_log
+
+# Qt Creator and Qt Design Studio local state
+.qtcreator/
+*.user
+*.user.*
+*.autosave
+*.qmlrc
+temp.qrc
+.qtc_clangd/
+
+# Generated binaries and intermediate files
+*.exe
+*.dll
+*.so
+*.dylib
+*.a
+*.lib
+*.o
+*.obj
+*.pdb
+*.ilk
+*.idb
+*.qmlc
+*.jsc
+*.qm
+
+# Operating system and editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
